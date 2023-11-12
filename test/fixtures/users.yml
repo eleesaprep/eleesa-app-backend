@@ -5,9 +5,11 @@ one:
   email: MyString
   password_digest: MyString
   full_name: MyString
+  user_type: MyString
 
 two:
   username: MyString
   email: MyString
   password_digest: MyString
   full_name: MyString
+  user_type: MyString
