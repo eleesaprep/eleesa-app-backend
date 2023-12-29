@@ -1,4 +1,4 @@
 class OptionSerializer < ActiveModel::Serializer
-  attributes :id, :option_text, :is_correct
+  attributes :id, :option_text
   belongs_to :question
 end

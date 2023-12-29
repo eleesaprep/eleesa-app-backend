@@ -1,7 +1,5 @@
 class AddInstructorToCourses < ActiveRecord::Migration[7.0]
   def change
-    add_reference :enrollments, :user, null: false, foreign_key: true
-    add_reference :enrollments, :course, null: false, foreign_key: true
     add_reference :quizzes, :course, null: false, foreign_key: true
     add_reference :questions, :quiz, null: false, foreign_key: true
     add_reference :options, :question, null: false, foreign_key: true

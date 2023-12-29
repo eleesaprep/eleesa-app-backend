@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_one :progress, dependent: :destroy
+  has_many :progresses, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments, dependent: :destroy
   has_many :responses, dependent: :destroy

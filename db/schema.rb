@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,12 +25,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
 
   create_table "enrollments", force: :cascade do |t|
     t.datetime "enrollment_date"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "course_id", null: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id", unique: true
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
@@ -58,10 +58,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
 
   create_table "options", force: :cascade do |t|
     t.string "option_text"
-    t.boolean "is_correct"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "question_id", null: false
+    t.index ["option_text", "question_id"], name: "index_options_on_option_text_and_question_id", unique: true
     t.index ["question_id"], name: "index_options_on_question_id"
   end
 
@@ -74,7 +74,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.bigint "course_id", null: false
+    t.bigint "quiz_id", null: false
+    t.string "course_code"
+    t.string "exam_title"
     t.index ["course_id"], name: "index_progresses_on_course_id"
+    t.index ["quiz_id"], name: "index_progresses_on_quiz_id"
+    t.index ["user_id", "quiz_id"], name: "index_progresses_on_user_id_and_quiz_id", unique: true
     t.index ["user_id"], name: "index_progresses_on_user_id"
   end
 
@@ -84,17 +89,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "quiz_id", null: false
+    t.string "correct_answer"
+    t.integer "time"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
   create_table "quizzes", force: :cascade do |t|
     t.string "exam_title"
     t.datetime "exam_date"
-    t.datetime "duration"
     t.decimal "total_marks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "course_id", null: false
+    t.decimal "duration"
     t.index ["course_id"], name: "index_quizzes_on_course_id"
   end
 
@@ -128,6 +135,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_24_095916) do
   add_foreign_key "materials", "courses"
   add_foreign_key "options", "questions"
   add_foreign_key "progresses", "courses"
+  add_foreign_key "progresses", "quizzes"
   add_foreign_key "progresses", "users"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "courses"

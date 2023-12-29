@@ -2,7 +2,8 @@ class Api::V1::EnrollmentsController < ApplicationController
   before_action :require_login
   # GET /payments
   def index
-    @enrollments = Enrollment.all
+    @user = User.find(params[:user_id])
+    @enrollments = @user.enrollments.all
     render json: @enrollments
   end
 
@@ -22,18 +23,15 @@ class Api::V1::EnrollmentsController < ApplicationController
   end
 
   def destroy
-    if session_user.user_type == 'admin'
-      @enrollment = Enrollment.find(params[:id])
-      @enrollment.destroy
-      render json: { message: 'Enrollment deleted successfully' }
-    else
-      render json: { message: 'You don\'t have permission to delete this enrollment' }
-    end
+    @user = User.find(params[:user_id])
+    @enrollment = @user.enrollments.find(params[:id])
+    @enrollment.destroy
+    render json: { message: 'Enrollment deleted successfully' }
   end
 
   private
 
   def enrollment_params
-    params.require(:enrollment).permit(:enrollment_date, :status, :user_id, :course_id)
+    params.require(:enrollment).permit(:enrollment_date, :user_id, :course_id)
   end
 end

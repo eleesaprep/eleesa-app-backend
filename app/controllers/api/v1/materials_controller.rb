@@ -48,6 +48,6 @@ class Api::V1::MaterialsController < ApplicationController
   private
 
   def material_params
-    params.require(:material).permit(:title, :description, :file_url, :upload_date, :uploaded_by, :course_id)
+    params.require(:material).permit(:title, :description, :file_url, :upload_date, :course_id)
   end
 end

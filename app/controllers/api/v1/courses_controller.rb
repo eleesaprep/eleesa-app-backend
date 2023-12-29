@@ -2,7 +2,7 @@ class Api::V1::CoursesController < ApplicationController
   before_action :require_login
   # GET /users
   def index
-    @courses = Course.all
+    @courses = Course.includes(:quizzes).includes(:enrollments).all
     render json: @courses
   end
 

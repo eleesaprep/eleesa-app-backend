@@ -1,9 +1,8 @@
-class CreateEnrollments < ActiveRecord::Migration[7.0]
+class CreateTableEnrollments < ActiveRecord::Migration[7.0]
   def change
     create_table :enrollments do |t|
       t.datetime :enrollment_date
-      t.string :status
-
+      
       t.timestamps
     end
   end

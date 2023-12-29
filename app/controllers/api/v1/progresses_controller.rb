@@ -1,15 +1,19 @@
 class Api::V1::ProgressesController < ApplicationController
   before_action :require_login
-  # GET /questions
+  # GET /progresses
   def index
-    @user = user.find(params[:user_id])
-    @progress = @user.progress
+    @quiz = Quiz.find(params[:quiz_id])
+    @progress = @quiz.progresses
     render json: @progress
   end
 
-  # GET /questions/:id
+  # GET /progresses/:id
   def show
-    @progress = Progress.find(params[:id])
+    # @progress = Progress.find(params[:id])
+    # render json: @progress
+    @quiz = Quiz.find(params[:quiz_id])
+    @user = session_user
+    @progress = Progress.find_by(quiz: @quiz, user: @user)
     render json: @progress
   end
 
@@ -48,7 +52,6 @@ class Api::V1::ProgressesController < ApplicationController
   private
 
   def progress_params
-    params.require(:progress).permit(:user_id, :course_id, :total_marks_available, :total_marks_obtained, :grade,
-                                     :status)
+    params.require(:progress).permit(:user_id, :course_id, :quiz_id, :total_marks_available, :total_marks_obtained, :grade, :course_code, :exam_title)
   end
 end

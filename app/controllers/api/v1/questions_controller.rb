@@ -3,7 +3,7 @@ class Api::V1::QuestionsController < ApplicationController
   # GET /questions
   def index
     @quiz = Quiz.find(params[:quiz_id])
-    @questions = @quiz.questions
+    @questions = @quiz.questions.order("RANDOM()")
     render json: @questions
   end
 
@@ -48,6 +48,6 @@ class Api::V1::QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:question_text, :question_type, :quiz_id)
+    params.require(:question).permit(:question_text, :time, :question_type, :correct_answer, :quiz_id)
   end
 end

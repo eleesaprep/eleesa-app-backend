@@ -9,7 +9,8 @@ class Api::V1::OptionsController < ApplicationController
 
   # GET /option/:id
   def show
-    @option = Option.find(params[:id])
+    @question = Question.find(params[:question_id])
+    @option = @question.options.find(params[:id])
     render json: @option
   end
 
@@ -37,7 +38,8 @@ class Api::V1::OptionsController < ApplicationController
 
   def destroy
     if session_user.user_type == 'admin'
-      @option = Option.find(params[:id])
+      @question = Question.find(params[:question_id])
+      @option = @question.options.find(params[:id])
       @option.destroy
       render json: { message: 'Option deleted successfully' }
     else
@@ -48,6 +50,6 @@ class Api::V1::OptionsController < ApplicationController
   private
 
   def option_params
-    params.require(:option).permit(:question_id, :option_text, :is_correct)
+    params.require(:option).permit(:question_id, :option_text)
   end
 end

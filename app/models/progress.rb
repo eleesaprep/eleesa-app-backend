@@ -1,4 +1,5 @@
 class Progress < ApplicationRecord
-  belongs_to :student
+  belongs_to :user
   belongs_to :course
+  belongs_to :quiz
 end
