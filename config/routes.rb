@@ -30,4 +30,5 @@ Rails.application.routes.draw do
       resources :instructors, only: [:index, :show, :create, :destroy]
     end
   end
+  get '*path', to: 'main#index'
 end
