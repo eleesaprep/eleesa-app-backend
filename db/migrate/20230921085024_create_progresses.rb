@@ -5,6 +5,8 @@ class CreateProgresses < ActiveRecord::Migration[7.0]
       t.decimal :total_marks_available
       t.string :grade
       t.string :status
+      t.string :course_code
+      t.string :exam_title
 
       t.timestamps
     end

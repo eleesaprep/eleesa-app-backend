@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_07_224409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,22 +34,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
-  create_table "instructors", force: :cascade do |t|
-    t.string "full_name"
-    t.string "email"
-    t.string "department"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "course_id", null: false
-    t.index ["course_id"], name: "index_instructors_on_course_id"
-  end
-
   create_table "materials", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "file_url"
-    t.string "uploaded_by"
-    t.datetime "upload_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "course_id", null: false
@@ -105,20 +93,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
     t.index ["course_id"], name: "index_quizzes_on_course_id"
   end
 
-  create_table "responses", force: :cascade do |t|
-    t.string "response_text"
-    t.boolean "is_correct"
-    t.decimal "marks_obtained"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "question_id", null: false
-    t.bigint "quiz_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["question_id"], name: "index_responses_on_question_id"
-    t.index ["quiz_id"], name: "index_responses_on_quiz_id"
-    t.index ["user_id"], name: "index_responses_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -131,7 +105,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
 
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
-  add_foreign_key "instructors", "courses"
   add_foreign_key "materials", "courses"
   add_foreign_key "options", "questions"
   add_foreign_key "progresses", "courses"
@@ -139,7 +112,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_22_143022) do
   add_foreign_key "progresses", "users"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "courses"
-  add_foreign_key "responses", "questions"
-  add_foreign_key "responses", "quizzes"
-  add_foreign_key "responses", "users"
 end

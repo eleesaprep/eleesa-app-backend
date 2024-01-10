@@ -3,7 +3,7 @@ class CreateQuizzes < ActiveRecord::Migration[7.0]
     create_table :quizzes do |t|
       t.string :exam_title
       t.datetime :exam_date
-      t.datetime :duration
+      t.decimal :duration
       t.decimal :total_marks
 
       t.timestamps

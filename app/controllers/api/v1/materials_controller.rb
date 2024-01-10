@@ -2,7 +2,7 @@ class Api::V1::MaterialsController < ApplicationController
   before_action :require_login
   # GET /questions
   def index
-    @course = course.find(params[:course_id])
+    @course = Course.find(params[:course_id])
     @materials = @course.materials
     render json: @materials
   end
@@ -48,6 +48,6 @@ class Api::V1::MaterialsController < ApplicationController
   private
 
   def material_params
-    params.require(:material).permit(:title, :description, :file_url, :upload_date, :course_id)
+    params.require(:material).permit(:title, :description, :file_url, :course_id)
   end
 end

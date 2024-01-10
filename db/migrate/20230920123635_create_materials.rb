@@ -4,8 +4,6 @@ class CreateMaterials < ActiveRecord::Migration[7.0]
       t.string :title
       t.string :description
       t.string :file_url
-      t.string :uploaded_by
-      t.datetime :upload_date
 
       t.timestamps
     end

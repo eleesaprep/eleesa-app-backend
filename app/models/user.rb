@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_many :progresses, dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments, dependent: :destroy
-  has_many :responses, dependent: :destroy
 
   validates :full_name, presence: true, length: { maximum: 50 }
   validates :username, presence: true, length: { maximum: 20 }
