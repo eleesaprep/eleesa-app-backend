@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post "/login", to: "auth#login"
   get "/auto_login", to: "auth#auto_login"
   get "/user_is_authed", to: "auth#user_is_authed"
+  post "/password_reset", to: "password_reset#create"
+  put "/password_reset", to: "password_reset#update"
 
   namespace :api do
     namespace :v1 do
@@ -30,5 +32,5 @@ Rails.application.routes.draw do
       resources :instructors, only: [:index, :show, :create, :destroy]
     end
   end
-  get '*path', to: 'main#index'
+  get '*path', to: 'main#index', via: :all
 end
