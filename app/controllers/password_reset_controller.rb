@@ -15,7 +15,7 @@ class PasswordResetController < ApplicationController
 
   def update
     begin
-      decoded_token = JWT.decode(params[:token], 'your_secret_key_here', true, algorithm: 'HS256')
+      decoded_token = JWT.decode(params[:token], 'my_secret', true, algorithm: 'HS256')
       user_id = decoded_token.first['user_id']
       user = User.find(user_id)
 
