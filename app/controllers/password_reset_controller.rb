@@ -6,7 +6,7 @@ class PasswordResetController < ApplicationController
     if user
       token = JWT.encode({ user_id: user.id }, 'my_secret')
       PasswordResetMailer.reset_password_email(user.email, token).deliver_now
-      render json: { message: 'Password reset instructions sent to your email.' }
+      render json: token
     else
       render json: { error: 'User not found with the provided email.' }, status: :not_found
     end
