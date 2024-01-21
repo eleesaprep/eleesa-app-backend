@@ -1,5 +1,5 @@
 class PasswordResetMailer < ActionMailer::Base
-  default from: 'admin@ee-prep.com'
+  default from: 'ericopokuantwi384@gmail.com'
 
   def reset_password_email(user_email, token)
     @token = token
