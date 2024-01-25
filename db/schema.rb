@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_07_224409) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_160008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_announcements_on_user_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "course_code"
@@ -71,6 +80,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_07_224409) do
     t.index ["user_id"], name: "index_progresses_on_user_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.string "img_url"
+    t.string "description"
+    t.integer "project_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "question_text"
     t.string "question_type"
@@ -103,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_07_224409) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "announcements", "users"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
   add_foreign_key "materials", "courses"
@@ -110,6 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_07_224409) do
   add_foreign_key "progresses", "courses"
   add_foreign_key "progresses", "quizzes"
   add_foreign_key "progresses", "users"
+  add_foreign_key "projects", "users"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "courses"
 end

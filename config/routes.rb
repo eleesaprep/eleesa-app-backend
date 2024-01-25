@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :new, :destroy, :update] do
         resources :enrollments, only: [:index, :show, :create, :destroy]
       end
+      resources :projects, only: [:index, :show, :create, :destroy, :update]
+      resources :announcements, only: [:index, :show, :create, :destroy, :update]
       resources :responses, only: [:index, :show, :create, :destroy]
       resources :messages
       resources :courses, only: [:index, :show, :create, :new, :destroy, :update] do 

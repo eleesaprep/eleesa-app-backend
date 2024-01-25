@@ -3,4 +3,6 @@ class UserSerializer < ActiveModel::Serializer
   has_many :progresses
   has_many :enrollments
   has_many :courses, through: :enrollments
+  has_many :projects
+  has_many :announcements
 end
