@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exam_title: MyString
+  exam_date: 2023-09-20 12:29:16
+  duration: 2023-09-20 12:29:16
+  total_marks: 9.99
+
+two:
+  exam_title: MyString
+  exam_date: 2023-09-20 12:29:16
+  duration: 2023-09-20 12:29:16
+  total_marks: 9.99
